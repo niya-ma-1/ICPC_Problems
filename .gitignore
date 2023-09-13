@@ -1,0 +1,7 @@
+ex.out
+*.out
+in.txt
+out.txt
+sol.txt
+stdc++.h
+workingfile.cpp
