@@ -13,43 +13,45 @@ int main(){
 
     // find longest increasing and decreasing subsequence
 
-    int n;
-    cin >> n;
+    int T, N;
+    cin >> T;
 
-    int num_buildings;
-
-    int n1 = 0;
-
-    while (n1 < n){
-        n1 ++;
-        cin >> num_buildings;
-
-        int heights[num_buildings];
-        int widths[num_buildings];
-
-        for (int i = 0; i < num_buildings; i++){
-            cin >> heights[i];
-        }
-        for (int i = 0; i < num_buildings; i++){
-            cin >> widths[i];
+    for (int cases = 0; cases < T; cases++) {
+        cin >> N;
+        int heights[N], widths[N], dpIncreasing[N], dpDecreasing[N];
+        for (int i = 0; i < N; i++) cin >> heights[i];
+        for (int i = 0; i < N; i++) cin >> widths[i];
+        for (int i = 0; i < N; i++){
+            dpIncreasing[i] = widths[i];
+            dpDecreasing[i] = widths[i];
         }
 
-        int longest_increasing;
-        int longest_decreasing;
-
-        
-
-
-
-
-        cout << "Case " << n1 << ". ";
-        if (longest_increasing > longest_decreasing){
-            cout << "Increasing (" << longest_increasing << "). Decreasing (" << longest_decreasing << ").";
+        for (int i = 0; i < N; i++){
+            for (int j = i + 1; j < N; j++){
+                //
+                // Increasing
+                if (heights[j] > heights[i] && dpIncreasing[j] < dpIncreasing[i] + widths[j]){
+                    dpIncreasing[j] = dpIncreasing[i] + widths[j];
+                }
+                //
+                // Decreasing
+                if (heights[j] < heights[i] && dpDecreasing[j] < dpDecreasing[i] + widths[j]){
+                    dpDecreasing[j] = dpDecreasing[i] + widths[j];
+                }
+            }
         }
-        else{
-            cout << "Decreasing (" << longest_decreasing << "). Increasing (" << longest_increasing << ").";
+
+        int decMax = 0, incMax = 0;
+        for (int i = 0; i < N; i++){
+            decMax = max(decMax, dpDecreasing[i]);
+            incMax = max(incMax, dpIncreasing[i]);
         }
-        
+
+
+        if(decMax <= incMax)
+            cout << "Case " << cases + 1 << ". Increasing (" << incMax << "). Decreasing (" << decMax << ").\n";
+        else
+            cout << "Case " << cases + 1 << ". Decreasing (" << decMax << "). Increasing (" << incMax << ").\n";
     }
 
     
