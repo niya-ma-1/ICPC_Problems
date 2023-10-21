@@ -32,13 +32,13 @@ int main(){
             for (int j = 0; j < M; j++){
                 cin >> currCell;
 
-                if (currCell == 'N' || currCell == 'E' || currCell == 'S' || currCell == 'O'){
+                if (currCell == 'N' || currCell == 'S' || currCell == 'L' || currCell == 'O'){
                     currI = i;
                     currJ = j;
                 }
 
                 if (currCell == 'N') currDir = 0;
-                else if (currCell == 'E') currDir = 1;
+                else if (currCell == 'L') currDir = 1;
                 else if (currCell == 'S') currDir = 2;
                 else if (currCell == 'O') currDir = 3;
                 
@@ -59,22 +59,25 @@ int main(){
             else if ( instruction == 'E'){
                 currDir = (currDir - 1 + 4) % 4;
             }
-            else{
+            else if (instruction == 'F'){
                 int newI = currI;
                 int newJ = currJ;
                 if (currDir == 0) newI--;
                 else if (currDir == 1) newJ++;
                 else if (currDir == 2) newI++;
                 else if (currDir == 3) newJ--;
-                if (newI >= 0 && newI < N && newJ >0 && newJ < M && grid[newI][newJ] != '#'){
-                    currI = newI;
-                    currJ = newJ;
+                if (newI < 0 || newI >= N || newJ < 0 || newJ >= M || grid[newI][newJ] == '#'){
+                    continue;
                 }
+                currI = newI;
+                currJ = newJ;
             }
+            
             if (grid[currI][currJ] == '*'){
                 result++;
                 grid[currI][currJ] = '.';
             }
+        
             // cout << "Instruction " << instruction << " new positions " << currI << currJ  << " new dir " << currDir<< endl;
         }
 
