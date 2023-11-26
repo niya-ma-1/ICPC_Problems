@@ -53,21 +53,21 @@ int main(){
 
             // connect source to each customer request
             sscanf(line, "%c%d %s", &c, &cnt, num);
-            graph[s][c - 'A' + 1] = cnt;//起点连接程序
+            graph[s][c - 'A' + 1] = cnt;/
             sum += cnt;
             // connect customer request to computers
             for(int i = 0; num[i]; ++i)
-                graph[c - 'A' + 1][num[i] - '0' + 27] = inf; //程序连接电脑
+                graph[c - 'A' + 1][num[i] - '0' + 27] = inf;
         }
         // connect computer to sink/target
         for(int i = 0; i < 10; ++i){
-            graph[i + 27][t] = 1;//电脑连接终点
+            graph[i + 27][t] = 1;
         }
 
         mf = 0;
         while(1){
             // initial flow is 0
-            f = 0;//初始化最小边
+            f = 0;
         
             vi dist(38, inf); 
             dist[0] = 0;
@@ -79,7 +79,7 @@ int main(){
             pred.assign(38, -1);
 
             // bfs
-            while(!q.empty()){//BFS寻找s到t的路径
+            while(!q.empty()){
                 int u = q.front(); 
                 q.pop();
 
@@ -96,7 +96,7 @@ int main(){
                 }
             }
             // after bfs completes, update the flow along the augmenting path, starting min capacity is inf
-            augment(t, inf);//只要存在路径就可以得到最小边
+            augment(t, inf);
             if(f == 0) break;
             // update max flow
             mf += f;//计算最大流
@@ -112,7 +112,7 @@ int main(){
                 // loop over softwares
                 for(int j = 1; j <= 26 && sign; j++){
                     // check if flow on reverse edge
-                    if(graph[i][j] > 0){//检测逆向边
+                    if(graph[i][j] > 0){
                         cout << (char)(j - 1 + 'A');
                         sign = false;
                     }
