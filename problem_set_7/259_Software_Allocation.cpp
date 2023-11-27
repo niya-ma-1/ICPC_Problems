@@ -53,7 +53,7 @@ int main(){
 
             // connect source to each customer request
             sscanf(line, "%c%d %s", &c, &cnt, num);
-            graph[s][c - 'A' + 1] = cnt;/
+            graph[s][c - 'A' + 1] = cnt;
             sum += cnt;
             // connect customer request to computers
             for(int i = 0; num[i]; ++i)
